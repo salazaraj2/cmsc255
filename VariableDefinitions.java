@@ -1,6 +1,6 @@
 /* Alec Salazar
  * CMSC255-901
- * 2014JAN21
+ * 2014JAN23
  * Lab02
 */
 
@@ -40,29 +40,29 @@ public class VariableDefinitions{
 		long reallyBigNumber = 32768;
 
 		System.out.println("Part A Variables:");
-		System.out.printf("numPeople = %d\n",numPeople);
+		System.out.println("numPeople = "+numPeople);
 		System.out.printf("itemPrice = %8.2f\n",itemPrice);
-		System.out.printf("greeting = %s\n",greeting);
-		System.out.printf("doneFlag = %s\n",doneFlag);
-		System.out.printf("seekInput = %s\n",seekInput);
-		System.out.printf("classRoomNumber = %4d\n",classRoomNumber);
-		System.out.printf("dinnerPrice = %8.2f\n",dinnerPrice);
-		System.out.printf("dinnerGuest = %s\n",dinnerGuest);
-		System.out.printf("addTax = %s\n",addTax);
-		System.out.printf("keyPress = %s\n",keyPress);
+		System.out.println("greeting = "+greeting);
+		System.out.println("doneFlag = "+doneFlag);
+		System.out.println("seekInput = "+seekInput);
+		System.out.println("classRoomNumber = "+classRoomNumber);
+		System.out.println("dinnerPrice = "+dinnerPrice);
+		System.out.println("dinnerGuest = "+dinnerGuest);
+		System.out.println("addTax = "+addTax);
+		System.out.println("keyPress = "+keyPress);
 		System.out.println();
 
 		System.out.println("Part B Variables:");
-		System.out.printf("count = %d\n",count);
-		System.out.printf("total = %8.2f\n",total);
-		System.out.printf("name = %s\n",name);
-		System.out.printf("stopKey = %s\n",stopKey);
-		System.out.printf("dayOfTheWeek = %s\n",dayOfTheWeek);
-		System.out.printf("stopFlag = %s\n",stopFlag);
-		System.out.printf("temperatureReading = %8.2f\n",temperatureReading);
-		System.out.printf("numPets = %d\n",numPets);
-		System.out.printf("upKey = %s\n",upKey);
-		System.out.printf("reallyBigNumber = %d\n",reallyBigNumber);
+		System.out.println("count = "+count);
+		System.out.println("total = "+total);
+		System.out.println("name = "+name);
+		System.out.println("stopKey = "+stopKey);
+		System.out.println("dayOfTheWeek = "+dayOfTheWeek);
+		System.out.println("stopFlag = "+stopFlag);
+		System.out.println("temperatureReading = "+temperatureReading);
+		System.out.println("numPets = "+numPets);
+		System.out.println("upKey = "+upKey);
+		System.out.println("reallyBigNumber = "+reallyBigNumber);
 		System.out.println();
 
 		numPeople *= 3;
@@ -77,38 +77,38 @@ public class VariableDefinitions{
 		keyPress = 'q';
 
 		System.out.println("Part A Variable Values Reassigned:");
-		System.out.printf("numPeople = %d\n",numPeople);
-		System.out.printf("itemPrice = %8.2f\n",itemPrice);
-		System.out.printf("greeting = %s\n",greeting);
-		System.out.printf("doneFlag = %s\n",doneFlag);
-		System.out.printf("seekInput = %s\n",seekInput);
-		System.out.printf("classRoomNumber = %4d\n",classRoomNumber);
-		System.out.printf("dinnerPrice = %8.2f\n",dinnerPrice);
-		System.out.printf("dinnerGuest = %s\n",dinnerGuest);
-		System.out.printf("addTax = %s\n",addTax);
-		System.out.printf("keyPress = %s\n",keyPress);
+		System.out.println("numPeople = "+numPeople);
+		System.out.println("itemPrice = "+itemPrice);
+		System.out.println("greeting = "+greeting);
+		System.out.println("doneFlag = "+doneFlag);
+		System.out.println("seekInput = "+seekInput);
+		System.out.println("classRoomNumber = "+classRoomNumber);
+		System.out.println("dinnerPrice = "+dinnerPrice);
+		System.out.println("dinnerGuest = "+dinnerGuest);
+		System.out.println("addTax = "+addTax);
+		System.out.println("keyPress = "+keyPress);
 		System.out.println();
 
 		final byte SMALL = 127;
 		final short MEDIUM = 32767;
 		final int LARGE = (SMALL + 1) * (MEDIUM + 1);
-		final long HUGE = (SMALL + 1) * LARGE; // * 2); so big it's negative
-		final float LABOR_WAGE = ((SMALL + 1) / 16) ;
-		final double COST_OF_LIVING = Math.pow( HUGE , SMALL); 
+		final long HUGE = (SMALL + 1) * LARGE;
+		final double SPEED_OF_LIGHT = 300000000;
+		final float SPEED_OF_SOUND =  (float) (SPEED_OF_LIGHT / 1000);
 		final char THE_LETTER_OF_THE_DAY = 'p';
-		final String BROUGHT_TO_YOU_BY = "the color blue";
+		final boolean BLUE_SKY = true;
 
 		//SMALL = 126; //error: cannot assign a value to final variable SMALL
 
 		System.out.println("Eight Basic Data Types:");
-		System.out.printf("SMALL = %d\n",SMALL);
-		System.out.printf("MEDIUM = %d\n",MEDIUM);
-		System.out.printf("LARGE = %d\n",LARGE);
-		System.out.printf("HUGE = %d\n",HUGE);
-		System.out.printf("LABOR_WAGE = %8.2f\n",LABOR_WAGE);
-		System.out.printf("COST_OF_LIVING = %20f\n",COST_OF_LIVING);
-		System.out.printf("THE_LETTER_OF_THE_DAY = %s\n",THE_LETTER_OF_THE_DAY);
-		System.out.printf("BROUGHT_TO_YOU_BY = %s\n",BROUGHT_TO_YOU_BY);
+		System.out.println("SMALL = "+SMALL);
+		System.out.println("MEDIUM = "+MEDIUM);
+		System.out.println("LARGE = "+LARGE);
+		System.out.println("HUGE = "+HUGE);
+		System.out.println("SPEED_OF_SOUND = "+ SPEED_OF_SOUND + "m/s");
+		System.out.println("SPEED_OF_LIGHT = "+ SPEED_OF_LIGHT + "m/s");
+		System.out.println("THE_LETTER_OF_THE_DAY = "+ THE_LETTER_OF_THE_DAY); 
+		System.out.println("BLUE_SKY = "+BLUE_SKY);
 		System.out.println();
 
 	}
