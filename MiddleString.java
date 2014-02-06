@@ -6,6 +6,15 @@
  */
 
 //Simple program to compare two words and output in lexicographical order
+//Test Cases: aaa bbb ccc => bbb
+//aaa ccc bbb => bbb
+//bbb aaa ccc => bbb
+//bbb ccc aaa => bbb
+//ccc aaa bbb => bbb
+//ccc bbb aaa => bbb
+//aaa bbb aaa => aaa
+//aaa bbb bbb => bbb
+//aaa aaa bbb => aaa
 
 import java.util.Scanner;
 

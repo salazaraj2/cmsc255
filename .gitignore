@@ -1,6 +1,7 @@
 *.class
 *.swp
 *.out
+[Tt][Ee][Ss][Tt].*
 
 # Package Files #
 *.jar
