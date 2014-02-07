@@ -1,11 +1,12 @@
 /*
  * Alec Salazar
  * CMSC255-901
- * 2014JAN30
+ * 2014FEB07
  * Selection
  */
 
-//Simple program to output the number corresponding to a letter as grouped on a telephone dial pad. 
+//Simple program to calculate and output the diameter, circumference or area of a circle
+//based upon the radius given as input.
 
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class Selection {
 	private static void printHeading(){
 		System.out.println("Alec Salazar");
 		System.out.println("CMSC255-901 Spring 2014");
-		System.out.println("Lab 04");
+		System.out.println("Project 2");
 		System.out.println("Selection");
 		System.out.println("Selection.java");
 		System.out.println();
@@ -26,66 +27,35 @@ public class Selection {
 		printHeading();
 
 		Scanner in = new Scanner(System.in);
-		byte dialNum = -1;
-		//Prompt for input letter and store
-		System.out.print("Enter an upper-case letter to find the corresponding number on a telephone dial pad: ");
-		char inputLetter = in.next().charAt(0);
-		//Check that a capital letter was entered
-		if (inputLetter >= 'A' && inputLetter <= 'Z') {
-			//Compare against telephone dial pad groups
-			if (inputLetter <= 'L') {
-				if (inputLetter <= 'F'){
-					if (inputLetter <= 'C') {
-						dialNum = 2;
-					}
-					else {
-						dialNum = 3;
-					}
-				}
-				else {
-					if (inputLetter <= 'I') {
-						dialNum = 4;
-					}
-					else {
-						dialNum = 5;
-					}
-				}
-			}
-			else {
-				if (inputLetter <= 'S') {
-					if (inputLetter <= 'O') {
-						dialNum = 6;
-					}
-					else {
-						dialNum = 7;
-					}
-				}
-				else {
-					if (inputLetter <= 'V') {
-						dialNum = 8;
-					}
-					else {
-						dialNum = 9;
-					}
-				}
-			}
-			//Output correct number along with input letter
-			System.out.printf("You entered '"+inputLetter+"', which corresponds to %d.\n",dialNum);
+
+		//Prompt user to input radius
+		System.out.print("Please enter the radius of the circle: ");
+		while(!in.hasNextDouble()) {
+			//ensure a number is entered
+			System.out.print("Please enter a number: ");
+			in.next();
+		}
+		final double radius = in.nextDouble();
+
+		//Prompt user to select a calculation
+		System.out.print("Please choose a calculation of (D)iameter, (C)ircumference or (A)rea: ");
+		char calc = in.next().toUpperCase().charAt(0);
+
+		if (calc == 'A') { 
+			//Area=pi*r^2
+			System.out.printf("A circle with radius=%10.2f has area=%10.2f.\n",radius,(radius*radius*Math.PI));
+		}
+		else if (calc == 'C') { 
+			//C=2*pi*r
+			System.out.printf("A circle with radius=%10.2f has circumference=%10.2f.\n",radius,(2*radius*Math.PI));
+		}
+		else if (calc == 'D') {
+			//D=2*r
+			System.out.printf("A circle with radius=%10.2f has diameter=%10.2f.\n",radius,(2*radius));
 		}
 		else {
-			//Output error for lowercase, or error info for non-alpha chars 
-			if (inputLetter >= 'a' && inputLetter <='z') {
-				System.out.println("Error. You entered '"+ inputLetter +"'.\nPlease enter your letter in upper-case.");
-			}
-			else {
-				//
-				System.out.println("Error. This program only matches alphabetic characters.\nPlease enter a character from A-Z.");
-			}
+			//any other value is not in the domain
+			System.out.println("Option not recognized. Next time please type 'D', 'C' or 'A'.");
 		}
-
-		if (dialNum<0) {
-			System.out.println("Hmmm. Programming logic fail.");
-		}
-
 	}
 }
