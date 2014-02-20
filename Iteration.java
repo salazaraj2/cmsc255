@@ -11,7 +11,10 @@
  * with a line number.
  */
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.lang.Character;
 import java.util.Scanner;
 
 public class Iteration {
@@ -49,13 +52,29 @@ public class Iteration {
 			while (lineScanner.hasNextLine()) {
 				String line = lineScanner.nextLine();
 				//If line is nonempty output with line number
-				//Obviously this is rather flimsy, would prefer a regexp to detect
-				//a line of complete white space
 				if (line.length() > 0 && !line.equals(" ")) {
-					//Increase this number if user intends to process a
-					//Homeric epic or Shakespearean tragedy.
-					System.out.printf("%5d. %s\n",i,line);
-					i++;
+					int j = 0;
+					boolean hasText = false;
+
+					//Check that the line consists of text, not just whitespace
+					while (j < line.length() && !hasText) {
+						if(Character.isWhitespace(line.charAt(j))) {
+							j++;
+						}
+						else {
+							hasText = true;
+						}
+					}
+					if (hasText) {
+						//Increase this number if user intends to process a
+						//Homeric epic or Shakespearean tragedy.
+						System.out.printf("%5d. %s\n",i,line);
+						i++;
+					}
+					//If line is blank, output without number
+					else {
+						System.out.println(line);
+					}
 				}
 				//If line is blank, output without number
 				else {
