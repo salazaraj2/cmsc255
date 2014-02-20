@@ -1,6 +1,7 @@
 *.class
 *.swp
 *.out
+*.txt
 [Tt][Ee][Ss][Tt].*
 
 # Package Files #

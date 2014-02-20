@@ -40,10 +40,11 @@ public class NestedCountLoop {
 		} while (limit <= 0);
 		for (int i = 1; i <= limit; i++) {
 			long total = 0;
-			for (int j = 1; j <= i; j++) {
+			int j = 0;
+			for (j = 1; j <= i; j++) {
 				total+=j;
-				System.out.println("The sum of positive integers from 1 to "+ j +" is " + total);
 			}
+			System.out.println("The sum of positive integers from 1 to "+ (j-1) +" is " + total);
 		}
 	}
 }
