@@ -11,6 +11,7 @@
  * the appropriate row name and production count.
  */
 
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -34,37 +35,36 @@ public class Popcorn {
 	/** This is the method to extract the name and size
 	 * of the farm and the popcorn yield from each line.
 	 * @param popcornFarm accepts a single string for parsing
+	 * @return boolean false if data was unable to be read
 	 */
-	private static void popcornYield (String popcornFarm) {
-		Scanner lineScanner = new Scanner(popcornFarm);
-		String farmName = lineScanner.next();
+	private static boolean popcornYield (String popcornFarm) {
+		//I think a float should be fine since we'll be discarding the decimal later
+		float farmSize = (float) 0.0;
+		int popcornJars = 0, i = 0;
 		//First get the farm name, which should be at the front
-		while(!lineScanner.hasNextDouble()){
-			farmName+=" " + lineScanner.next();
+		while(i < popcornFarm.length() && !Character.isDigit(popcornFarm.charAt(i))){
+			i++;
 		}
-		farmName = farmName.trim();
+		String farmName = popcornFarm.substring(0,i);
 		//Cleanup unnecessary white space and remove the trailing comma
+		farmName = farmName.trim();
 		if (farmName.charAt(farmName.length()-1) == ','){
 		       	farmName = farmName.substring(0,farmName.length()-1);
 		}
-		//I think a float should be fine since we'll be discarding the decimal later
-		float farmSize = (float) 0.0;
+		//Now we can drop the name from the string
+		popcornFarm = popcornFarm.substring(i);
+		Scanner lineScanner = new Scanner(popcornFarm);
 		//The acreage should be listed after the farm name
 		if (lineScanner.hasNextDouble()){
 			farmSize = (float) lineScanner.nextDouble();
 		}
-		int popcornJars = 0;
 		//The production count should be after the acreage
-		if (lineScanner.hasNextInt()) {
+		if (lineScanner.hasNextInt()){
 			popcornJars = lineScanner.nextInt();
 		}
 		//If the numbers aren't useable
 		if (popcornJars <= 0||farmSize <= 0){
-			System.out.printf("\nError in text data. Entry %s %f %d",farmName,farmSize,popcornJars);
-			System.out.println("\nPlease ensure entries are properly formatted.");
-			System.out.println("\nEntries must be of the form <FarmName> <Acreage> <Yield>");
-			System.out.println("Skipping this entry to prevent runtime error.");
-			return;
+			return false;
 		}
 		//This number isn't expected to go beyond 24, well within the range of a byte
 		byte popStars = (byte) (popcornJars/(farmSize * 25));
@@ -84,7 +84,8 @@ public class Popcorn {
 			System.out.printf("%-19s#",starMarks.substring(0,19));
 			System.out.printf("%-4s",starMarks.substring(20));
 		}
-		return;
+		//We made it to the end so the data should be good
+		return true;
 	}
 
 	public static void main (String[] args) throws FileNotFoundException {
@@ -109,12 +110,25 @@ public class Popcorn {
 			System.out.printf("\n%-30s","Farm Name");
 			System.out.printf("   1   2   3   4   5   6\n");
 			System.out.printf("%30s%-20s","","---|---|---|---|---|---|");
+			//This will keep track of lines with errors
+			ArrayList<Integer> errors = new ArrayList<Integer>();
+			int errorLines = 1;
+			//printErrors is the canary, goodData tells us whether or not
+			//to add that line number to the error message
+			boolean printErrors = false, goodData = true;
 			//Process file one line at a time until file has no more lines
 			//and pass to the parsing method
 			while (lineScanner.hasNextLine()) {
-				popcornYield(lineScanner.nextLine());
+				goodData = popcornYield(lineScanner.nextLine());
+				if(!goodData) {
+					errors.add(errorLines);
+					printErrors = true;
+				}
+				errorLines++;
 			}
-			System.out.println();
+			if(printErrors){
+				System.out.println("\n\nError in text data. Line number(s): "+ errors);
+			}
 		}
 		catch (FileNotFoundException exception) {
 			System.out.println("\nCould not find the file specified. Please try again.\n");
