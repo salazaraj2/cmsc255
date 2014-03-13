@@ -41,9 +41,15 @@ public class Popcorn {
 		//I think a float should be fine since we'll be discarding the decimal later
 		float farmSize = (float) 0.0;
 		int popcornJars = 0, i = 0;
-		//First get the farm name, which should be at the front
-		while(i < popcornFarm.length() && !Character.isDigit(popcornFarm.charAt(i))){
-			i++;
+		popcornFarm = popcornFarm.trim();
+		if(popcornFarm.length() > 0){
+			//First get the farm name, which should be at the front
+			while(i < popcornFarm.length() && !Character.isDigit(popcornFarm.charAt(i))){
+				i++;
+			}
+		}
+		else{
+			return false;
 		}
 		String farmName = popcornFarm.substring(0,i);
 		//Cleanup unnecessary white space and remove the trailing comma
@@ -91,15 +97,18 @@ public class Popcorn {
 	public static void main (String[] args) throws FileNotFoundException {
 		printHeading();
 
-		//Prompt user for input file and store it
-		Scanner in = new Scanner(System.in);
-		System.out.print ("Enter the input filename: ");
-		String inputFileName = in.next();
-
 		//Try to catch FileNotFoundException before accepting user input
 		try {
 			//Create file object
-			File inputFile = new File(inputFileName);
+			File inputFile;
+			//Prompt user for input file and store it
+			do{
+				Scanner in = new Scanner(System.in);
+				System.out.print ("Enter the input filename: ");
+				String inputFileName = in.next();
+				inputFile = new File(inputFileName);
+			}while(!inputFile.exists());
+
 			//Open a scanner on the file
 			Scanner lineScanner = new Scanner(inputFile);
 
@@ -129,12 +138,12 @@ public class Popcorn {
 			if(printErrors){
 				System.out.println("\n\nError in text data. Line number(s): "+ errors);
 			}
+			//Don't forget to close the file
+			lineScanner.close();
 		}
 		catch (FileNotFoundException exception) {
 			System.out.println("\nCould not find the file specified. Please try again.\n");
 		}
-		//Don't forget to close the file
-		in.close();
 	}
 }
 
