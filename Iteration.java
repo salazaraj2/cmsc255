@@ -56,6 +56,7 @@ public class Iteration {
 				String line = lineScanner.nextLine();
 				//If line is nonempty output with line number
 				if (line.trim().length() > 0){
+					//This allows space for numbering up to 99999 lines of text
 					System.out.printf("%5d. %s\n",i,line);
 					i++;
 				}
