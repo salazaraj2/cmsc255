@@ -33,15 +33,18 @@ public class Iteration {
 	public static void main (String[] args) throws FileNotFoundException {
 		printHeading();
 
-		//Prompt user for input file and store it
-		Scanner in = new Scanner(System.in);
-		System.out.print ("Enter the input filename: ");
-		String inputFileName = in.next();
-
 		//Try to catch FileNotFoundException before accepting user input
 		try {
 			//Create file object
-			File inputFile = new File(inputFileName);
+			File inputFile;
+			//Prompt user for input file and store it
+			do{
+				Scanner in = new Scanner(System.in);
+				System.out.print ("Enter the input filename: ");
+				String inputFileName = in.next();
+				inputFile = new File(inputFileName);
+			}while(!inputFile.exists());
+
 			//Open a scanner on the file
 			Scanner lineScanner = new Scanner(inputFile);
 
@@ -52,29 +55,9 @@ public class Iteration {
 			while (lineScanner.hasNextLine()) {
 				String line = lineScanner.nextLine();
 				//If line is nonempty output with line number
-				if (line.length() > 0 && !line.equals(" ")) {
-					int j = 0;
-					boolean hasText = false;
-
-					//Check that the line consists of text, not just whitespace
-					while (j < line.length() && !hasText) {
-						if(Character.isWhitespace(line.charAt(j))) {
-							j++;
-						}
-						else {
-							hasText = true;
-						}
-					}
-					if (hasText) {
-						//Increase this number if user intends to process a
-						//Homeric epic or Shakespearean tragedy.
-						System.out.printf("%5d. %s\n",i,line);
-						i++;
-					}
-					//If line is blank, output without number
-					else {
-						System.out.println(line);
-					}
+				if (line.trim().length() > 0){
+					System.out.printf("%5d. %s\n",i,line);
+					i++;
 				}
 				//If line is blank, output without number
 				else {
@@ -82,6 +65,8 @@ public class Iteration {
 				}
 			}
 			System.out.println();
+			//Don't forget to close the file
+			lineScanner.close();
 		}
 		catch (FileNotFoundException exception) {
 			System.out.println("\nCould not find the file specified. Please try again.\n");
