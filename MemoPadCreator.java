@@ -14,7 +14,6 @@ import java.util.Date;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.lang.Character;
 import java.util.Scanner;
 
 public class MemoPadCreator {
