@@ -29,39 +29,49 @@ public class MatchUp {
 		System.out.println();
 	}
 
-	/** This is the method to extract the name and size
-	 */
 	public static void main(String args[]) throws FileNotFoundException{
 		printHeading();
 		String inputFileName = "MatchUp.java";
-		File inputFile;
-	        if(args.length >= 1){
-			inputFileName = args[args.length - 1];
-			if(args.length > 1){
-				System.out.println("Using last parameter (" + args[args.length - 1] + ") as the filename.");
+		//Initialize to a safe value
+		File inputFile = new File(inputFileName);
+
+		//Check for cmdline arguments and try to use as inputFile
+	       	if(args.length >= 1){
+			for(int j = 0; j < args.length; j++){
+				inputFileName = args[j];
+				inputFile = new File(inputFileName);
+				if(inputFile.exists()){
+					if(args.length > 1){
+						System.out.println("This program does not accept options.");
+					}
+					System.out.println("Using (" + args[j] + ") as the filename.");
+					//We found a valid file so exit the loop
+					j = args.length;
+				}
 			}
 		}
-		inputFile = new File(inputFileName);
-		try{
-			if(args.length < 1 || !inputFile.exists()){
-				System.out.println("Valid file name not specified on command line.");
-				do{	
-					Scanner in = new Scanner(System.in);
-					System.out.print ("\nPlease enter the input filename: ");
-					inputFileName = in.next();
-					inputFile = new File(inputFileName);
-				}while(!inputFile.exists());
-			}
-			System.out.println("");
+
+		//If no file specified on cmdline or file is invalid then request user input
+		if(args.length < 1 || !inputFile.exists()){
+			System.out.println("Valid file name not specified on command line.\n");
+			do{	
+				Scanner in = new Scanner(System.in);
+				System.out.print ("Please enter the input filename: ");
+				inputFileName = in.next();
+				inputFile = new File(inputFileName);
+			}while(!inputFile.exists());
 		}
-		catch (Exception exception){
-			exception.printStackTrace();
-		}
+		System.out.println("");
+
+		//We take one line from the input file at a time
 		Scanner lineScanner = new Scanner(inputFile);
+		//We need too keep track of the number of each brace so we can find mismatches
 		int openBrace = 0, closedBrace = 0;
 		while(lineScanner.hasNextLine()){
 			String line = lineScanner.nextLine();
 			String outputLine = "";
+			//Pass along each individual char from input to output so we can
+			//find the curly braces and append a number for each
 			for(int i = 0; i < line.length(); i++){
 				outputLine += line.charAt(i);
 				if(line.charAt(i) == '{'){
@@ -70,6 +80,7 @@ public class MatchUp {
 				}
 				else if(line.charAt(i) == '}'){		
 					if(closedBrace >= openBrace){
+						//In this case the closed brace has no matching opening brace
 						outputLine += "0";
 					}
 					else{
