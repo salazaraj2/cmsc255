@@ -29,8 +29,12 @@ public class MatchUp {
 		System.out.println();
 	}
 
-	public static void main(String args[]) throws FileNotFoundException{
-		printHeading();
+	/**This method looks through an array of Strings and returns the first String
+	 * that corresponds to a valid filename
+	 * @param args an array of Strings
+	 * @return a String containing the validated filename
+	 */
+	private static String fileValidator(String args[]){
 		String inputFileName = "MatchUp.java";
 		//Initialize to a safe value
 		File inputFile = new File(inputFileName);
@@ -61,10 +65,17 @@ public class MatchUp {
 				inputFile = new File(inputFileName);
 			}while(!inputFile.exists());
 		}
+		return inputFileName;
+	}
+
+	public static void main(String args[]) throws FileNotFoundException{
+		printHeading();
+
+		File validatedFile = new File(fileValidator(args));
+		//We take one line from the input file at a time
+		Scanner lineScanner = new Scanner(validatedFile);
 		System.out.println("");
 
-		//We take one line from the input file at a time
-		Scanner lineScanner = new Scanner(inputFile);
 		//We need too keep track of the number of each brace so we can find mismatches
 		int openBrace = 0, closedBrace = 0;
 		while(lineScanner.hasNextLine()){
