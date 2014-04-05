@@ -2,6 +2,7 @@
 *.swp
 *.out
 *.txt
+*.~lock*
 [Tt][Ee][Ss][Tt].*
 
 # Package Files #
