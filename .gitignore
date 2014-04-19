@@ -1,6 +1,7 @@
 *.class
 *.swp
 *.out
+*.odt
 *.txt
 *.~lock*
 [Tt][Ee][Ss][Tt].*
